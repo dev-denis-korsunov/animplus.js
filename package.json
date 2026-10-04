@@ -1,0 +1,53 @@
+{
+  "name": "animplus",
+  "version": "0.1.0-dev",
+  "description": "Anim+ procedural animation runtime and DOM adapter, written in TypeScript",
+  "type": "module",
+  "private": true,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./dom": {
+      "types": "./dist/dom-adapter.d.ts",
+      "import": "./dist/dom-adapter.js"
+    },
+    "./object": {
+      "types": "./dist/object-adapter.d.ts",
+      "import": "./dist/object-adapter.js"
+    },
+    "./examples/dog": {
+      "types": "./dist/examples/dog.d.ts",
+      "import": "./dist/examples/dog.js"
+    },
+    "./language": {
+      "types": "./dist/language.d.ts",
+      "import": "./dist/language.js"
+    }
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "grammar",
+    "README.md"
+  ],
+  "scripts": {
+    "build:source": "peggy --format es --allowed-start-rules Document,Expression -o dist/generated-parser.js grammar/animplus.peggy && tsc",
+    "build": "npm run build:source && node scripts/build-browser.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "test:browser": "npm run build && node scripts/browser-runtime-test.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dev-denis-korsunov/animplus.js.git"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "peggy": "5.1.0",
+    "esbuild": "0.28.2",
+    "@playwright/test": "1.63.0"
+  }
+}
